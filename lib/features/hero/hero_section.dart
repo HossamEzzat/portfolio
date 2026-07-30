@@ -270,7 +270,7 @@ class _HeroSectionState extends State<HeroSection>
             MagneticButton(
               label: 'Download Resume',
               icon: Icons.download_rounded,
-              onTap: () => openUrl('resume.pdf'),
+              onTap: () => openUrl('https://hossamezzat.github.io/portfolio/resume.pdf'),
             ),
             MagneticButton(
               label: 'View Projects',
