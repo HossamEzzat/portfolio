@@ -344,7 +344,7 @@ class PortfolioData {
     ),
   ];
 
-  static var resumeUrl="https://drive.google.com/file/d/1bEypsRaTuHPJk2BZskjvNm_Dtok3QMB4/view?usp=sharing";
+  static var resumeUrl="https://drive.google.com/file/d/1x4lf4-xZttxOgjFywK414VmjhxlZrg6x/view?usp=sharing";
 }
 
 class Education {
