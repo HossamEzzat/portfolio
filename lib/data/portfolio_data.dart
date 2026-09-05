@@ -40,7 +40,7 @@ class PortfolioData {
   static const stats = [
     StatItem(label: 'Years Experience', value: 3, suffix: '+'),
     StatItem(label: 'Projects', value: 12, suffix: '+'),
-    StatItem(label: 'Production Apps', value: 8, suffix: '+'),
+    StatItem(label: 'Production Apps', value: 9, suffix: '+'),
     StatItem(label: 'Students Taught', value: 200, suffix: '+'),
     StatItem(label: 'Academies', value: 7, suffix: ''),
     StatItem(label: 'Awards', value: 5, suffix: ''),
@@ -98,6 +98,21 @@ class PortfolioData {
   ];
 
   static const projects = [
+    Project(
+      title: 'BabyCare',
+      subtitle: 'by Rooka',
+      description:
+          'A parent-focused baby care app that keeps child profiles, vaccinations, '
+          'medical visits, reminders, and daily notes organized in one place — '
+          'live on the App Store and Google Play.',
+      category: 'Health',
+      technologies: ['Flutter', 'Notifications', 'Local Storage', 'Clean Architecture'],
+      platforms: ['iOS', 'Android'],
+      featured: true,
+      appStoreUrl: 'https://apps.apple.com/app/babycare-by-rooka/id6806644760',
+      playStoreUrl:
+          'https://play.google.com/store/apps/details?id=com.rooka.babycare',
+    ),
     Project(
       title: 'OPUS-365',
       description:
@@ -340,11 +355,12 @@ class PortfolioData {
       year: '2026',
       title: 'World Class',
       description:
-          'Flutter Developer at Opus365. Building enterprise-grade HR and business platforms.',
+          'Flutter Developer at Opus365. Launched BabyCare on the App Store and Google Play.',
     ),
   ];
 
-  static var resumeUrl="https://drive.google.com/file/d/1x4lf4-xZttxOgjFywK414VmjhxlZrg6x/view?usp=sharing";
+  static const resumeUrl =
+      'https://drive.google.com/file/d/1i7hB3GNnPj6lYM1UBmr7vtqj4SanDgmG/view?usp=sharing';
 }
 
 class Education {
@@ -399,6 +415,9 @@ class Project {
   final List<String> platforms;
   final String? subtitle;
   final bool featured;
+  final String? appStoreUrl;
+  final String? playStoreUrl;
+  final String? githubUrl;
 
   const Project({
     required this.title,
@@ -408,7 +427,13 @@ class Project {
     required this.platforms,
     this.subtitle,
     this.featured = false,
+    this.appStoreUrl,
+    this.playStoreUrl,
+    this.githubUrl,
   });
+
+  bool get hasStoreLinks =>
+      appStoreUrl != null || playStoreUrl != null || githubUrl != null;
 }
 
 enum AwardTier { gold, silver, honor }

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/utils/launch_utils.dart';
 import '../../core/widgets/section_wrapper.dart';
 import '../../data/portfolio_data.dart';
 
@@ -41,7 +42,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       eyebrow: 'Selected Work',
       title: 'Products that ship',
       subtitle:
-          'Enterprise platforms, learning apps, and business tools — crafted with Flutter and Clean Architecture.',
+          'Health apps, enterprise platforms, and business tools — crafted with Flutter and Clean Architecture.',
       child: Column(
         children: [
           // Search + filters
@@ -156,7 +157,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   crossAxisCount: cols,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
-                  childAspectRatio: cols == 1 ? 1.15 : 0.85,
+                  childAspectRatio: cols == 1 ? 1.05 : 0.78,
                 ),
                 itemBuilder: (context, i) => _ProjectCard(
                   project: items[i],
@@ -366,29 +367,33 @@ class _ProjectCardState extends State<_ProjectCard> {
                           );
                         }).toList(),
                       ),
-                      AnimatedSize(
-                        duration: const Duration(milliseconds: 250),
-                        child: _hovered
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: Row(
-                                  children: [
-                                    _ActionChip(
-                                      icon: Icons.open_in_new_rounded,
-                                      label: 'Details',
-                                      onTap: () {},
-                                    ),
-                                    const SizedBox(width: 8),
-                                    _ActionChip(
-                                      icon: Icons.code_rounded,
-                                      label: 'GitHub',
-                                      onTap: () {},
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                      ),
+                      if (p.hasStoreLinks) ...[
+                        const SizedBox(height: 14),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            if (p.appStoreUrl != null)
+                              _ActionChip(
+                                icon: Icons.apple,
+                                label: 'App Store',
+                                onTap: () => openUrl(p.appStoreUrl!),
+                              ),
+                            if (p.playStoreUrl != null)
+                              _ActionChip(
+                                icon: Icons.android_rounded,
+                                label: 'Google Play',
+                                onTap: () => openUrl(p.playStoreUrl!),
+                              ),
+                            if (p.githubUrl != null)
+                              _ActionChip(
+                                icon: Icons.code_rounded,
+                                label: 'GitHub',
+                                onTap: () => openUrl(p.githubUrl!),
+                              ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),

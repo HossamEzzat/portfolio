@@ -96,7 +96,7 @@ class FooterSection extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               TextButton.icon(
-                onPressed: () => openUrl('${PortfolioData.resumeUrl}'),
+                onPressed: () => openUrl(PortfolioData.resumeUrl),
                 icon: const Icon(Icons.download_rounded, size: 16),
                 label: const Text('Download Resume'),
               ),
