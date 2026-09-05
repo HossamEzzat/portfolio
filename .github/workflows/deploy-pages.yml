@@ -33,6 +33,37 @@ jobs:
       - name: Build web
         run: flutter build web --release --base-href "/portfolio/"
 
+      - name: Cache-bust Flutter assets
+        run: |
+          python3 << 'PY'
+          import os
+          from pathlib import Path
+
+          sha = os.environ["GITHUB_SHA"][:12]
+          web = Path("build/web")
+          index = web / "index.html"
+          html = index.read_text()
+          html = html.replace(
+              "<head>",
+              "<head>\n  <meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">\n  <meta http-equiv=\"Pragma\" content=\"no-cache\">\n  <meta http-equiv=\"Expires\" content=\"0\">",
+              1,
+          )
+          html = html.replace(
+              'src="flutter_bootstrap.js"',
+              f'src="flutter_bootstrap.js?v={sha}"',
+          )
+          index.write_text(html)
+
+          for name in ("flutter_bootstrap.js", "flutter.js"):
+              path = web / name
+              if not path.exists():
+                  continue
+              text = path.read_text()
+              text = text.replace('"main.dart.js"', f'"main.dart.js?v={sha}"')
+              text = text.replace("'main.dart.js'", f"'main.dart.js?v={sha}'")
+              path.write_text(text)
+          PY
+
       - name: Add SPA 404 fallback
         run: cp build/web/index.html build/web/404.html
 
